@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
 import { generateUrl } from "@/utils";
+
+export const runtime = 'edge';
 
 export async function GET(
   request: Request,
@@ -40,5 +41,10 @@ export async function GET(
     referral: address,
   });
 
-  return NextResponse.redirect(redirectUrl);
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: redirectUrl,
+    },
+  });
 }
