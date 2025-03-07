@@ -1,41 +1,41 @@
-# Meme KOLs 激励平台
+# Meme KOLs Incentive Platform
 
-## 项目简介
-这是一个为 Web3 KOL 量身定制的激励系统平台，支持通过专属链接追踪用户交易并分发奖励。
+## Project Overview
+This is an incentive system platform tailored for Web3 KOLs, supporting user transaction tracking and reward distribution through dedicated links.
 
-### 主要特性
-- Web3 钱包登录（Solana）
-- KOL 数据看板
-- 邀请链接追踪
-- 交易数据统计
-- 奖励分发管理
+### Key Features
+- Web3 Wallet Login (Solana)
+- KOL Dashboard
+- Invitation Link Tracking
+- Transaction Statistics
+- Reward Distribution Management
 
-### 技术栈
+### Tech Stack
 - Next.js 14
 - Shadcn UI
 - TailwindCSS
 - Lucid Icons
 - Solana Web3.js
 
-## 开始使用
+## Getting Started
 
 ```bash
-# 安装依赖
+# Install dependencies
 npm install
 
-# 运行开发环境
+# Run development server
 npm run dev
 
-# 构建生产环境
+# Build for production
 npm run build
 ```
 
-## 项目结构
+## Project Structure
 ```
 src/
-  ├── app/              # Next.js 14 应用目录
-  ├── components/       # React 组件
-  ├── lib/             # 工具函数和配置
-  ├── hooks/           # 自定义 Hooks
-  └── types/           # TypeScript 类型定义
+  ├── app/              # Next.js 14 app directory
+  ├── components/       # React components
+  ├── lib/             # Utilities and configurations
+  ├── hooks/           # Custom Hooks
+  └── types/           # TypeScript type definitions
 ```
