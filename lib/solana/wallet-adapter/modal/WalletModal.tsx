@@ -1,3 +1,4 @@
+'use client';
 import type { Adapter } from '@solana/wallet-adapter-base';
 import { WalletReadyState } from '@solana/wallet-adapter-base';
 import type { Wallet } from '@solana/wallet-adapter-react';

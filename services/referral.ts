@@ -58,13 +58,13 @@ export const referralService = {
   async queryReferralLink() {
     const account = window.solanaWallet?.account;
     if (!account) return;
-
-    const link = `${window.location.origin}/r/${account}`;
-
+    const {data}=await request<WrapperResponse<{code:string}>>(`/kol/data/account?account=${account}`)
+    // const link = `${window.location.origin}/r/${data?.code}`;
+    const link = `${process.env.NEXT_PUBLIC_REFERRAL_URL}/ref?code=${data?.code}`;
     return link;
   },
   async queryReferralCodes() {
-    const { data } = await request<WrapperResponse<{ code: string,being_invited_account_id:string; }[]>>(
+    const { data } = await request<WrapperResponse<{ code_list: {code:string}[],beta_code_list:{code:string;being_invited_account_id:string}[]; }>>(
       innerApiPrefix("/airdrop/code")
     );
     return data;

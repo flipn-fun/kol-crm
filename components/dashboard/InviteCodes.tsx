@@ -9,7 +9,7 @@ import { Copy, Link } from "lucide-react";
 import { useState, useMemo } from "react";
 
 export function InviteCodes() {
-  const { data: codes } = useRequest(referralService.queryReferralCodes);
+  const { data } = useRequest(referralService.queryReferralCodes);
 
   return (
     <Card className="p-6">
@@ -21,7 +21,7 @@ export function InviteCodes() {
       </div>
 
       <div className="flex items-center flex-wrap gap-2 ">
-        {codes?.map((item) => (
+        {data?.beta_code_list?.map((item) => (
           <InviteCodeItem
             key={item.code}
             code={item.code}
