@@ -61,10 +61,10 @@ export function DashboardPage() {
 
       <div className="grid gap-4 sm:gap-6 grid-cols-2 max-sm:grid-cols-1">
         <RewardsCard />
-        <InviteLink />
+        {/* <InviteLink /> */}
+         <InviteCodes />
       </div>
 
-      <InviteCodes />
       <ChartSection />
 
       <div className="grid gap-4 sm:gap-6 grid-cols-2 max-sm:grid-cols-1">

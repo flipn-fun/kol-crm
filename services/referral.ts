@@ -58,15 +58,23 @@ export const referralService = {
   async queryReferralLink() {
     const account = window.solanaWallet?.account;
     if (!account) return;
-    const {data}=await request<WrapperResponse<{code:string}>>(innerApiPrefix(`/kol/data/account?account=${account}`))
+    const { data } = await request<WrapperResponse<{ code: string }>>(
+      innerApiPrefix(`/kol/data/account?account=${account}`)
+    );
     // const link = `${window.location.origin}/r/${data?.code}`;
     const link = `${process.env.NEXT_PUBLIC_REFERRAL_URL}/ref?code=${data?.code}`;
     return link;
   },
   async queryReferralCodes() {
-    const { data } = await request<WrapperResponse<{ code_list: {code:string}[],beta_code_list:{code:string;being_invited_account_id:string}[]; }>>(
-      innerApiPrefix("/airdrop/code")
-    );
+    const { data } = await request<
+      WrapperResponse<{
+        code_list: { code: string; type: number }[];
+        beta_code_list: { code: string; being_invited_account_id: string }[];
+      }>
+    >(innerApiPrefix("/airdrop/code"));
+    data?.code_list &&
+      (data.code_list = data.code_list.filter((item) => item.type === 1));
+
     return data;
   },
   async querySolPrice() {

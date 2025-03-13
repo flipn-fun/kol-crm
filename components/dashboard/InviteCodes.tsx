@@ -16,41 +16,56 @@ export function InviteCodes() {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Link className="h-5 w-5 text-primary" />
-          <h2 className="text-xl font-semibold">Invite Codes</h2>
+          <h2 className="text-xl font-semibold">Invite Link</h2>
         </div>
       </div>
+      {!!data?.code_list?.length && (
+        <div className="flex items-center flex-wrap gap-2 mb-4">
+          {data?.code_list?.map((item) => (
+            <InviteLinkItem key={item.code} code={item.code} mode="link" />
+          ))}
+        </div>
+      )}
 
-      <div className="flex items-center flex-wrap gap-2 ">
-        {data?.beta_code_list?.map((item) => (
-          <InviteCodeItem
-            key={item.code}
-            code={item.code}
-            usedAccountId={item.being_invited_account_id}
-          />
-        ))}
-      </div>
-
+      {!!data?.beta_code_list?.length && (
+        <div className="flex items-center flex-wrap gap-2 mb-4">
+          {data?.beta_code_list?.map((item) => (
+            <InviteLinkItem
+              key={item.code}
+              code={item.code}
+              usedAccountId={item.being_invited_account_id}
+              mode="code"
+            />
+          ))}
+        </div>
+      )}
       <p className="mt-4 text-sm text-muted-foreground">
-        Share this code with others. You'll earn rewards when they trade through
-        your code.
+        Share this link with others. You'll earn rewards when they trade through
+        your link.
       </p>
     </Card>
   );
 }
 
-function InviteCodeItem({
+function InviteLinkItem({
+  mode,
   code,
   usedAccountId,
 }: {
+  mode: "code" | "link";
   code: string;
-  usedAccountId: string;
+  usedAccountId?: string;
 }) {
   const [copied, setCopied] = useState(false);
-  
-  async function copyLink(code: string) {
+
+  const link = useMemo(() => {
+    return mode === "code" ? code : `${process.env.NEXT_PUBLIC_REFERRAL_URL}/ref?code=${code}`;
+  }, [mode, code]);
+
+  async function copyLink(  ) {
     try {
-      if (!code) return;
-      await navigator.clipboard.writeText(code);
+      if (!link) return;
+      await navigator.clipboard.writeText(link);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -61,14 +76,18 @@ function InviteCodeItem({
   const isUsed = !!usedAccountId;
 
   return (
-    <div className={`flex items-center gap-2 px-3 py-1 rounded-md ${
-      isUsed ? 'bg-muted/30' : 'bg-muted/50'
-    }`}>
+    <div
+      className={`flex items-center gap-2 px-3 py-1 rounded-md ${
+        isUsed ? "bg-muted/30" : "bg-muted/50"
+      }`}
+    >
       <div className="flex flex-col flex-1">
-        <span className={`font-mono text-sm truncate ${
-          isUsed ? 'text-muted-foreground' : ''
-        }`}>
-          {code}
+        <span
+          className={`font-mono text-sm truncate whitespace-break-spaces break-all ${
+            isUsed ? "text-muted-foreground" : ""
+          }`}
+        >
+          {link}
         </span>
         {isUsed && (
           <span className="text-xs text-muted-foreground">
@@ -77,13 +96,14 @@ function InviteCodeItem({
         )}
       </div>
       <div className="flex items-center gap-2">
-   
         <button
-          onClick={() => copyLink(code)}
+          onClick={copyLink}
           className="p-2 hover:bg-background rounded-md transition-colors relative"
           disabled={isUsed}
         >
-          <Copy className={`h-4 w-4 ${isUsed ? 'text-muted-foreground' : ''}`} />
+          <Copy
+            className={`h-4 w-4 ${isUsed ? "text-muted-foreground" : ""}`}
+          />
           {copied && (
             <span className="absolute right-0 -top-8 bg-popover text-popover-foreground px-2 py-1 rounded shadow-lg text-sm whitespace-nowrap">
               Copied
