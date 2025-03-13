@@ -58,7 +58,7 @@ export const referralService = {
   async queryReferralLink() {
     const account = window.solanaWallet?.account;
     if (!account) return;
-    const {data}=await request<WrapperResponse<{code:string}>>(`/kol/data/account?account=${account}`)
+    const {data}=await request<WrapperResponse<{code:string}>>(innerApiPrefix(`/kol/data/account?account=${account}`))
     // const link = `${window.location.origin}/r/${data?.code}`;
     const link = `${process.env.NEXT_PUBLIC_REFERRAL_URL}/ref?code=${data?.code}`;
     return link;
